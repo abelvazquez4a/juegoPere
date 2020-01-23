@@ -2,25 +2,13 @@ package com.example.jocpere2;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.graphics.drawable.Drawable;
-import android.media.Image;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.DecelerateInterpolator;
 import android.widget.ImageView;
-import android.widget.Toast;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -28,52 +16,38 @@ public class MainActivity extends AppCompatActivity {
 
     ImageView imagenCarmen, imagenRajoy, imagenPablo,imagenCarmen2, imagenRajoy2, imagenPablo2;
     HashMap<String,Integer> hashMapIdImagenes = new HashMap<>();
-    Handler handler = new Handler();
-
     HashMap<String,String> hashMapNombreImagenes = new HashMap<>();
     HashMap<Integer,Integer> hashMapImagenes = new HashMap<>();
     ArrayList<Integer> listaImagenes = new ArrayList<>();
     ArrayList<Integer> contenedorDeId = new ArrayList<>();
     ArrayList<Integer> contadorJugadas = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
-        hashMapImagenes.put(0,R.drawable.carmen);
-        hashMapImagenes.put(1,R.drawable.pablo);
-        hashMapImagenes.put(2,R.drawable.rajoy);
-        hashMapImagenes.put(3,R.drawable.carmen);
-        hashMapImagenes.put(4,R.drawable.pablo);
-        hashMapImagenes.put(5,R.drawable.rajoy);
-
-        while (listaImagenes.size()<6){
-            int numeroRandom = ((int)(Math.random()*(6)));
-            if (!listaImagenes.contains(numeroRandom)){
-                listaImagenes.add(numeroRandom);
-            }
-        }
-
-
-
         imagenCarmen = findViewById(R.id.imageView_carmen);
         imagenCarmen2 = findViewById(R.id.imageView_carmen2);
         imagenPablo = findViewById(R.id.imageView_pablo);
         imagenPablo2 = findViewById(R.id.imageView_pablo2);
         imagenRajoy = findViewById(R.id.imageView_rajoy);
         imagenRajoy2 = findViewById(R.id.imageView_rajoy2);
-
         contenedorDeId.add(imagenCarmen.getId());
         contenedorDeId.add(imagenCarmen2.getId());
         contenedorDeId.add(imagenPablo.getId());
         contenedorDeId.add(imagenPablo2.getId());
         contenedorDeId.add(imagenRajoy.getId());
         contenedorDeId.add(imagenRajoy2.getId());
-
+        hashMapImagenes.put(0,R.drawable.carmen);
+        hashMapImagenes.put(1,R.drawable.pablo);
+        hashMapImagenes.put(2,R.drawable.rajoy);
+        hashMapImagenes.put(3,R.drawable.carmen);
+        hashMapImagenes.put(4,R.drawable.pablo);
+        hashMapImagenes.put(5,R.drawable.rajoy);
+        inicializarArrayList(listaImagenes);
         generarImagenesAleatorias(contenedorDeId);
     }
+
     public void jugada (final View view){
 
         Log.d("prueba","size contador: "+contadorJugadas.size());
@@ -118,11 +92,19 @@ public class MainActivity extends AppCompatActivity {
             imageView2.setVisibility(View.INVISIBLE);
         }
         else {
-
+            imageView1 = findViewById(hashMapIdImagenes.get(nombreImageView));
+            imageView2 = findViewById(hashMapIdImagenes.get(nombreImageView2));
+            imageView1.setVisibility(View.INVISIBLE);
+            imageView2.setVisibility(View.INVISIBLE);
+            imageView1 = findViewById(jugadasAComparar.get(0));
+            imageView2 = findViewById(jugadasAComparar.get(1));
             imageView1.setVisibility(View.VISIBLE);
             imageView2.setVisibility(View.VISIBLE);
+            final View v1=imageView1;
+            final View v2=imageView2;
+            girarConAnimacion(v1);
+            girarConAnimacion(v2);
         }
-
     }
     public void generarImagenesAleatorias(ArrayList<Integer>lista){
         for (int id : lista ){
@@ -175,9 +157,10 @@ public class MainActivity extends AppCompatActivity {
         String nombreBueno=arreglarNombre(nombre);
         view.setVisibility(View.INVISIBLE);
        if (!nombreBueno.isEmpty()) view = findViewById(hashMapIdImagenes.get(nombreBueno));
-        view.setVisibility(View.VISIBLE);
+        final View v = view;
+        v.setVisibility(View.VISIBLE);
+        girarConAnimacion(v);
     }
-
     public String arreglarNombre (String nombre){
         String copiaNombre=nombre;
         String nombreBueno="";
@@ -187,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
         if (nombreBueno.isEmpty()) nombreBueno=copiaNombre;
         return nombreBueno;
     }
-
     public String dameElNombreDelIndice(int indice){
         String nombre="";
         switch (indice){
@@ -200,14 +182,28 @@ public class MainActivity extends AppCompatActivity {
         }
         return nombre;
     }
-    public class Pausa extends Thread{
-        @Override
-        public void run() {
-            super.run();
-            try {
-                sleep(2000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    public void girarConAnimacion (final View view){
+        view.animate().withLayer()
+                .rotationY(90)
+                .setDuration(300)
+                .withEndAction(
+                        new Runnable() {
+                            @Override public void run() {
+                                // second quarter turn
+                                view.setRotationY(-90);
+                                view.animate().withLayer()
+                                        .rotationY(0)
+                                        .setDuration(300)
+                                        .start();
+                            }
+                        }
+                ).start();
+    }
+    public void inicializarArrayList(ArrayList<Integer>listaImagenes){
+        while (listaImagenes.size()<6){
+            int numeroRandom = ((int)(Math.random()*(6)));
+            if (!listaImagenes.contains(numeroRandom)){
+                listaImagenes.add(numeroRandom);
             }
         }
     }
