@@ -7,50 +7,37 @@
     tools:context=".MainActivity">
 
     <ImageView
+        android:id="@+id/imageView_pablo2"
+        android:layout_width="117dp"
+        android:layout_height="169dp"
+        android:background="@drawable/carta"
+        android:onClick="jugada"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.87" />
+
+    <ImageView
         android:id="@+id/imageView_rajoy2"
         android:layout_width="117dp"
         android:layout_height="169dp"
         android:background="@drawable/carta"
-        android:onClick="flipAnimation"
+        android:onClick="jugada"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.792"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.87" />
-
-    <ImageView
-        android:id="@+id/imageView_carmen"
-        android:layout_width="117dp"
-        android:layout_height="169dp"
-        android:background="@drawable/carta"
-        android:onClick="flipAnimation"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.792"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122" />
-
-    <ImageView
-        android:id="@+id/imageView_rajoy"
-        android:layout_width="117dp"
-        android:layout_height="169dp"
-        android:background="@drawable/carta"
-        android:onClick="flipAnimation"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.234"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.122" />
 
     <ImageView
         android:id="@+id/imageView_pablo"
         android:layout_width="117dp"
         android:layout_height="169dp"
         android:background="@drawable/carta"
-        android:onClick="flipAnimation"
+        android:onClick="jugada"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.234"
@@ -59,11 +46,107 @@
         app:layout_constraintVertical_bias="0.498" />
 
     <ImageView
-        android:id="@+id/imageView_pablo2"
+        android:id="@+id/imageView_carmen"
         android:layout_width="117dp"
         android:layout_height="169dp"
         android:background="@drawable/carta"
-        android:onClick="flipAnimation"
+        android:onClick="jugada"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <ImageView
+        android:id="@+id/imageView_carmen2"
+        android:layout_width="117dp"
+        android:layout_height="169dp"
+        android:background="@drawable/carta"
+        android:onClick="jugada"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <ImageView
+        android:id="@+id/imageView_rajoy"
+        android:layout_width="117dp"
+        android:layout_height="169dp"
+        android:background="@drawable/carta"
+        android:onClick="jugada"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <ImageView
+        android:id="@+id/imageView_carmen2B"
+        android:layout_width="117dp"
+        android:layout_height="169dp"
+        android:background="@drawable/carta"
+        android:onClick="jugada"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <ImageView
+        android:id="@+id/imageView_carmenB"
+        android:layout_width="117dp"
+        android:layout_height="169dp"
+        android:background="@drawable/carta"
+        android:onClick="jugada"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.792"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <ImageView
+        android:id="@+id/imageView_rajoyB"
+        android:layout_width="117dp"
+        android:layout_height="169dp"
+        android:background="@drawable/carta"
+        android:onClick="jugada"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.122" />
+
+    <ImageView
+        android:id="@+id/imageView_pabloB"
+        android:layout_width="117dp"
+        android:layout_height="169dp"
+        android:background="@drawable/carta"
+        android:onClick="jugada"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.234"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.498" />
+
+    <ImageView
+        android:id="@+id/imageView_pablo2B"
+        android:layout_width="117dp"
+        android:layout_height="169dp"
+        android:background="@drawable/carta"
+        android:onClick="jugada"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.234"
@@ -72,16 +155,17 @@
         app:layout_constraintVertical_bias="0.87" />
 
     <ImageView
-        android:id="@+id/imageView_carmen2"
+        android:id="@+id/imageView_rajoy2B"
         android:layout_width="117dp"
         android:layout_height="169dp"
         android:background="@drawable/carta"
-        android:onClick="flipAnimation"
+        android:onClick="jugada"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.792"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
+        app:layout_constraintVertical_bias="0.87" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
