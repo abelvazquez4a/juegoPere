@@ -3,35 +3,44 @@ package com.example.jocpere2;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
 
-    ImageView imagenCarmen, imagenRajoy, imagenPablo,imagenCarmen2, imagenRajoy2, imagenPablo2;
+    int numeroAciertos;
+    AnimationDrawable gifReloj;
+    ImageView imagenCarmen, imagenRajoy, imagenPablo,imagenCarmen2, imagenRajoy2, imagenPablo2, imagenSuccess;
     HashMap<String,Integer> hashMapIdImagenes = new HashMap<>();
     HashMap<String,String> hashMapNombreImagenes = new HashMap<>();
     HashMap<Integer,Integer> hashMapImagenes = new HashMap<>();
     ArrayList<Integer> listaImagenes = new ArrayList<>();
     ArrayList<Integer> contenedorDeId = new ArrayList<>();
     ArrayList<Integer> contadorJugadas = new ArrayList<>();
+    Animation hyperspaceJumpAnimation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        numeroAciertos=0;
         imagenCarmen = findViewById(R.id.imageView_carmen);
         imagenCarmen2 = findViewById(R.id.imageView_carmen2);
         imagenPablo = findViewById(R.id.imageView_pablo);
         imagenPablo2 = findViewById(R.id.imageView_pablo2);
         imagenRajoy = findViewById(R.id.imageView_rajoy);
         imagenRajoy2 = findViewById(R.id.imageView_rajoy2);
+        imagenSuccess = findViewById(R.id.imageView_success);
         contenedorDeId.add(imagenCarmen.getId());
         contenedorDeId.add(imagenCarmen2.getId());
         contenedorDeId.add(imagenPablo.getId());
@@ -44,8 +53,14 @@ public class MainActivity extends AppCompatActivity {
         hashMapImagenes.put(3,R.drawable.carmen);
         hashMapImagenes.put(4,R.drawable.pablo);
         hashMapImagenes.put(5,R.drawable.rajoy);
+        imagenSuccess.setVisibility(View.INVISIBLE);
         inicializarArrayList(listaImagenes);
         generarImagenesAleatorias(contenedorDeId);
+        hyperspaceJumpAnimation = AnimationUtils.loadAnimation(this, R.anim.animacioncutre);
+        ImageView gifImageReloj = findViewById(R.id.imageView_reloj);
+        gifImageReloj.setBackgroundResource(R.drawable.gifreloj);
+        gifReloj = (AnimationDrawable) gifImageReloj.getBackground();
+        gifReloj.start();
     }
 
     public void jugada (final View view){
@@ -88,8 +103,16 @@ public class MainActivity extends AppCompatActivity {
         if (nombreDrawable1==nombreDrawable2){
             imageView1 = findViewById(hashMapIdImagenes.get(nombreImageView));
             imageView2 = findViewById(hashMapIdImagenes.get(nombreImageView2));
+            animacionMatch();
             imageView1.setVisibility(View.INVISIBLE);
             imageView2.setVisibility(View.INVISIBLE);
+            numeroAciertos++;
+            Log.d("pruebaAciertos",""+numeroAciertos);
+            if (numeroAciertos==3){
+                Intent i = new Intent (this,Finish.class);
+                startActivity(i);
+            }
+
         }
         else {
             imageView1 = findViewById(hashMapIdImagenes.get(nombreImageView));
@@ -104,7 +127,9 @@ public class MainActivity extends AppCompatActivity {
             final View v2=imageView2;
             girarConAnimacion(v1);
             girarConAnimacion(v2);
+
         }
+
     }
     public void generarImagenesAleatorias(ArrayList<Integer>lista){
         for (int id : lista ){
@@ -207,4 +232,18 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+    public void animacionMatch(){
+        imagenSuccess.setVisibility(View.VISIBLE);
+        new CountDownTimer(1300, 1300) {
+            public void onFinish() {
+                imagenSuccess.setVisibility(View.INVISIBLE);
+            }
+
+            public void onTick(long millisUntilFinished) {
+                //imagenSuccess.startAnimation(hyperspaceJumpAnimation);
+                girarConAnimacion(imagenSuccess);
+            }
+        }.start();
+    }
+
 }
