@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -20,10 +21,10 @@ public class MainActivity extends AppCompatActivity {
 
     int numeroAciertos;
     AnimationDrawable gifReloj;
-    ImageView imagenCarmen, imagenRajoy, imagenPablo,imagenCarmen2, imagenRajoy2, imagenPablo2, imagenSuccess;
-    HashMap<String,Integer> hashMapIdImagenes = new HashMap<>();
-    HashMap<String,String> hashMapNombreImagenes = new HashMap<>();
-    HashMap<Integer,Integer> hashMapImagenes = new HashMap<>();
+    ImageView imagenCarmen, imagenRajoy, imagenPablo, imagenCarmen2, imagenRajoy2, imagenPablo2, imagenSuccess;
+    HashMap<String, Integer> hashMapIdImagenes = new HashMap<>();
+    HashMap<String, String> hashMapNombreImagenes = new HashMap<>();
+    HashMap<Integer, Integer> hashMapImagenes = new HashMap<>();
     ArrayList<Integer> listaImagenes = new ArrayList<>();
     ArrayList<Integer> contenedorDeId = new ArrayList<>();
     ArrayList<Integer> contadorJugadas = new ArrayList<>();
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        numeroAciertos=0;
+        numeroAciertos = 0;
         imagenCarmen = findViewById(R.id.imageView_carmen);
         imagenCarmen2 = findViewById(R.id.imageView_carmen2);
         imagenPablo = findViewById(R.id.imageView_pablo);
@@ -47,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
         contenedorDeId.add(imagenPablo2.getId());
         contenedorDeId.add(imagenRajoy.getId());
         contenedorDeId.add(imagenRajoy2.getId());
-        hashMapImagenes.put(0,R.drawable.carmen);
-        hashMapImagenes.put(1,R.drawable.pablo);
-        hashMapImagenes.put(2,R.drawable.rajoy);
-        hashMapImagenes.put(3,R.drawable.carmen);
-        hashMapImagenes.put(4,R.drawable.pablo);
-        hashMapImagenes.put(5,R.drawable.rajoy);
+        hashMapImagenes.put(0, R.drawable.carmen);
+        hashMapImagenes.put(1, R.drawable.pablo);
+        hashMapImagenes.put(2, R.drawable.rajoy);
+        hashMapImagenes.put(3, R.drawable.carmen);
+        hashMapImagenes.put(4, R.drawable.pablo);
+        hashMapImagenes.put(5, R.drawable.rajoy);
         imagenSuccess.setVisibility(View.INVISIBLE);
         inicializarArrayList(listaImagenes);
         generarImagenesAleatorias(contenedorDeId);
@@ -63,16 +64,15 @@ public class MainActivity extends AppCompatActivity {
         gifReloj.start();
     }
 
-    public void jugada (final View view){
+    public void jugada(final View view) {
 
-        Log.d("prueba","size contador: "+contadorJugadas.size());
-        if (contadorJugadas.isEmpty()){
-            Log.d("prueba","entroEmpty");
+        Log.d("prueba", "size contador: " + contadorJugadas.size());
+        if (contadorJugadas.isEmpty()) {
+            Log.d("prueba", "entroEmpty");
             levantarCarta(view);
             contadorJugadas.add(view.getId());
-        }
-        else if (contadorJugadas.size()==1){
-            Log.d("prueba","entroNoEmpty");
+        } else if (contadorJugadas.size() == 1) {
+            Log.d("prueba", "entroNoEmpty");
             new CountDownTimer(1000, 1000) {
                 public void onFinish() {
                     contadorJugadas.add(view.getId());
@@ -89,32 +89,32 @@ public class MainActivity extends AppCompatActivity {
             }.start();
         }
     }
-    public void comprobarJugada(ArrayList<Integer>jugadasAComparar)  {
+
+    public void comprobarJugada(ArrayList<Integer> jugadasAComparar) {
         ImageView imageView1 = findViewById(jugadasAComparar.get(0));
         ImageView imageView2 = findViewById(jugadasAComparar.get(1));
         String nombreImageView = imageView1.getResources().getResourceName(imageView1.getId());
         String nombreImageView2 = imageView2.getResources().getResourceName(imageView2.getId());
-        nombreImageView=arreglarNombre(nombreImageView);
-        nombreImageView2=arreglarNombre(nombreImageView2);
+        nombreImageView = arreglarNombre(nombreImageView);
+        nombreImageView2 = arreglarNombre(nombreImageView2);
         String nombreDrawable1 = hashMapNombreImagenes.get(nombreImageView);
         String nombreDrawable2 = hashMapNombreImagenes.get(nombreImageView2);
-        Log.d("prueba","drawable1: "+nombreDrawable1);
-        Log.d("prueba","drawable2: "+nombreDrawable2);
-        if (nombreDrawable1==nombreDrawable2){
+        Log.d("prueba", "drawable1: " + nombreDrawable1);
+        Log.d("prueba", "drawable2: " + nombreDrawable2);
+        if (nombreDrawable1 == nombreDrawable2) {
             imageView1 = findViewById(hashMapIdImagenes.get(nombreImageView));
             imageView2 = findViewById(hashMapIdImagenes.get(nombreImageView2));
             animacionMatch();
             imageView1.setVisibility(View.INVISIBLE);
             imageView2.setVisibility(View.INVISIBLE);
             numeroAciertos++;
-            Log.d("pruebaAciertos",""+numeroAciertos);
-            if (numeroAciertos==3){
-                Intent i = new Intent (this,Finish.class);
+            Log.d("pruebaAciertos", "" + numeroAciertos);
+            if (numeroAciertos == 3) {
+                Intent i = new Intent(this, Finish.class);
                 startActivity(i);
             }
+        } else {
 
-        }
-        else {
             imageView1 = findViewById(hashMapIdImagenes.get(nombreImageView));
             imageView2 = findViewById(hashMapIdImagenes.get(nombreImageView2));
             imageView1.setVisibility(View.INVISIBLE);
@@ -123,97 +123,118 @@ public class MainActivity extends AppCompatActivity {
             imageView2 = findViewById(jugadasAComparar.get(1));
             imageView1.setVisibility(View.VISIBLE);
             imageView2.setVisibility(View.VISIBLE);
-            final View v1=imageView1;
-            final View v2=imageView2;
+            final View v1 = imageView1;
+            final View v2 = imageView2;
             girarConAnimacion(v1);
             girarConAnimacion(v2);
-
         }
-
     }
-    public void generarImagenesAleatorias(ArrayList<Integer>lista){
-        for (int id : lista ){
+
+    public void generarImagenesAleatorias(ArrayList<Integer> lista) {
+        for (int id : lista) {
             asignarImagenAleatoria(findViewById(id));
         }
     }
-    public void asignarImagenAleatoria (View view){
+
+    public void asignarImagenAleatoria(View view) {
         String nombre = view.getResources().getResourceName(view.getId());
         switch (nombre) {
-            case "com.example.jocpere2:id/imageView_carmen" :
+            case "com.example.jocpere2:id/imageView_carmen":
                 view.setBackgroundResource(hashMapImagenes.get(listaImagenes.get(0)));
                 view.setVisibility(View.INVISIBLE);
-                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_carmen",view.getId());
-                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_carmen",dameElNombreDelIndice(listaImagenes.get(0)));
+                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_carmen", view.getId());
+                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_carmen", dameElNombreDelIndice(listaImagenes.get(0)));
                 break;
-            case "com.example.jocpere2:id/imageView_pablo" :
+            case "com.example.jocpere2:id/imageView_pablo":
                 view.setBackgroundResource(hashMapImagenes.get(listaImagenes.get(1)));
                 view.setVisibility(View.INVISIBLE);
-                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_pablo",view.getId());
-                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_pablo",dameElNombreDelIndice(listaImagenes.get(1)));
-                ;break;
-            case "com.example.jocpere2:id/imageView_rajoy" :
+                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_pablo", view.getId());
+                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_pablo", dameElNombreDelIndice(listaImagenes.get(1)));
+                ;
+                break;
+            case "com.example.jocpere2:id/imageView_rajoy":
                 view.setBackgroundResource(hashMapImagenes.get(listaImagenes.get(2)));
                 view.setVisibility(View.INVISIBLE);
-                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_rajoy",view.getId());
-                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_rajoy",dameElNombreDelIndice(listaImagenes.get(2)));
-                ;break;
-            case "com.example.jocpere2:id/imageView_carmen2" :
+                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_rajoy", view.getId());
+                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_rajoy", dameElNombreDelIndice(listaImagenes.get(2)));
+                ;
+                break;
+            case "com.example.jocpere2:id/imageView_carmen2":
                 view.setBackgroundResource(hashMapImagenes.get(listaImagenes.get(3)));
                 view.setVisibility(View.INVISIBLE);
-                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_carmen2",view.getId());
-                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_carmen2",dameElNombreDelIndice(listaImagenes.get(3)));
-                ;break;
-            case "com.example.jocpere2:id/imageView_pablo2" :
+                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_carmen2", view.getId());
+                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_carmen2", dameElNombreDelIndice(listaImagenes.get(3)));
+                ;
+                break;
+            case "com.example.jocpere2:id/imageView_pablo2":
                 view.setBackgroundResource(hashMapImagenes.get(listaImagenes.get(4)));
                 view.setVisibility(View.INVISIBLE);
-                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_pablo2",view.getId());
-                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_pablo2",dameElNombreDelIndice(listaImagenes.get(4)));
-                ;break;
+                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_pablo2", view.getId());
+                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_pablo2", dameElNombreDelIndice(listaImagenes.get(4)));
+                ;
+                break;
 
-            case "com.example.jocpere2:id/imageView_rajoy2" :
+            case "com.example.jocpere2:id/imageView_rajoy2":
                 view.setBackgroundResource(hashMapImagenes.get(listaImagenes.get(5)));
                 view.setVisibility(View.INVISIBLE);
-                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_rajoy2",view.getId());
-                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_rajoy2",dameElNombreDelIndice(listaImagenes.get(5)));
+                hashMapIdImagenes.put("com.example.jocpere2:id/imageView_rajoy2", view.getId());
+                hashMapNombreImagenes.put("com.example.jocpere2:id/imageView_rajoy2", dameElNombreDelIndice(listaImagenes.get(5)));
         }
     }
-    public void levantarCarta (View view){
+
+    public void levantarCarta(View view) {
         String nombre = view.getResources().getResourceName(view.getId());
-        String nombreBueno=arreglarNombre(nombre);
+        String nombreBueno = arreglarNombre(nombre);
         view.setVisibility(View.INVISIBLE);
-       if (!nombreBueno.isEmpty()) view = findViewById(hashMapIdImagenes.get(nombreBueno));
+        if (!nombreBueno.isEmpty()) view = findViewById(hashMapIdImagenes.get(nombreBueno));
         final View v = view;
         v.setVisibility(View.VISIBLE);
         girarConAnimacion(v);
     }
-    public String arreglarNombre (String nombre){
-        String copiaNombre=nombre;
-        String nombreBueno="";
-        if (nombre.charAt(nombre.length()-1)=='B'){
-            nombreBueno=nombre.substring(0,nombre.length()-1);
+
+    public String arreglarNombre(String nombre) {
+        String copiaNombre = nombre;
+        String nombreBueno = "";
+        if (nombre.charAt(nombre.length() - 1) == 'B') {
+            nombreBueno = nombre.substring(0, nombre.length() - 1);
         }
-        if (nombreBueno.isEmpty()) nombreBueno=copiaNombre;
+        if (nombreBueno.isEmpty()) nombreBueno = copiaNombre;
         return nombreBueno;
     }
-    public String dameElNombreDelIndice(int indice){
-        String nombre="";
-        switch (indice){
-            case 0 : nombre="carmen";break;
-            case 1 : nombre="pablo";break;
-            case 2 : nombre="rajoy";break;
-            case 3 : nombre="carmen";break;
-            case 4 : nombre="pablo";break;
-            case 5 : nombre="rajoy";break;
+
+    public String dameElNombreDelIndice(int indice) {
+        String nombre = "";
+        switch (indice) {
+            case 0:
+                nombre = "carmen";
+                break;
+            case 1:
+                nombre = "pablo";
+                break;
+            case 2:
+                nombre = "rajoy";
+                break;
+            case 3:
+                nombre = "carmen";
+                break;
+            case 4:
+                nombre = "pablo";
+                break;
+            case 5:
+                nombre = "rajoy";
+                break;
         }
         return nombre;
     }
-    public void girarConAnimacion (final View view){
+
+    public void girarConAnimacion(final View view) {
         view.animate().withLayer()
                 .rotationY(90)
                 .setDuration(300)
                 .withEndAction(
                         new Runnable() {
-                            @Override public void run() {
+                            @Override
+                            public void run() {
                                 // second quarter turn
                                 view.setRotationY(-90);
                                 view.animate().withLayer()
@@ -224,15 +245,17 @@ public class MainActivity extends AppCompatActivity {
                         }
                 ).start();
     }
-    public void inicializarArrayList(ArrayList<Integer>listaImagenes){
-        while (listaImagenes.size()<6){
-            int numeroRandom = ((int)(Math.random()*(6)));
-            if (!listaImagenes.contains(numeroRandom)){
+
+    public void inicializarArrayList(ArrayList<Integer> listaImagenes) {
+        while (listaImagenes.size() < 6) {
+            int numeroRandom = ((int) (Math.random() * (6)));
+            if (!listaImagenes.contains(numeroRandom)) {
                 listaImagenes.add(numeroRandom);
             }
         }
     }
-    public void animacionMatch(){
+
+    public void animacionMatch() {
         imagenSuccess.setVisibility(View.VISIBLE);
         new CountDownTimer(1300, 1300) {
             public void onFinish() {
